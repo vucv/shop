@@ -1,0 +1,43 @@
+<div ui-content-for="title">
+    <span>Nhập hóa đơn</span>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+
+        <form role="form" ng-submit='login()'>
+            <fieldset>
+                <legend>Thông tin</legend>
+                <div class="form-group">
+                    <label for="storeSelect">Cửa hàng: </label><br>
+                    <select name="storeSelect" ng-model="data.storeSelect" class="form-control">
+                        <option value="option-1">Option 1</option>
+                        <option value="option-2">Option 2</option>
+                    </select><br>
+                </div>
+
+                <div class="form-group">
+                    <label>Ngày lấy hàng</label>
+                    <input type="date"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Remember Me</label>
+                    <ui-switch
+                            ng-model='rememberMe'></ui-switch>
+                </div>
+            </fieldset>
+            <hr>
+
+            <button class="btn btn-primary btn-block">
+                Nhập kho
+            </button>
+
+            <div ui-content-for="navbarAction">
+                <a class='btn' ng-click='login()'>Hủy</a>
+            </div>
+
+        </form>
+    </div>
+</div>
