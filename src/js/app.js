@@ -6,6 +6,8 @@ angular.module('MyApp', [
   'myApp.services',
   'myApp.services.store',
   'MyApp.controllers.store',
+  'myApp.services.category',
+  'MyApp.controllers.category',
   'myApp.controllers'
 ])
 .run(function(DB) {
@@ -15,6 +17,10 @@ angular.module('MyApp', [
   $routeProvider.when('/', {templateUrl:'home.html',  reloadOnSearch: false});
   $routeProvider.when('/nhapDonHang', {templateUrl:'nhapDonHang.html',  reloadOnSearch: false, controller:'nhapDonHang'});
   $routeProvider.when('/testDB', {templateUrl:'controller.html',  reloadOnSearch: false, controller:'DocumentCtrl'});
-  $routeProvider.when('/store', {templateUrl:'stores.html',  reloadOnSearch: false, controller:'store'});
-  $routeProvider.when('/store/add', {templateUrl:'addStore.html',  reloadOnSearch: false, controller:'store'});
+  $routeProvider.when('/store', {templateUrl:'store/list.html',  reloadOnSearch: false, controller:'store'});
+  $routeProvider.when('/store/add', {templateUrl:'store/add.html',  reloadOnSearch: false, controller:'store'});
+  $routeProvider.when('/store/view', {templateUrl:'store/view.html',  reloadOnSearch: false, controller:'store'});
+  $routeProvider.when('/category', {templateUrl:'category/list.html',  reloadOnSearch: false, controller:'category'});
+  $routeProvider.when('/category/add', {templateUrl:'category/add.html',  reloadOnSearch: false, controller:'category'});
+  $routeProvider.when('/category/view', {templateUrl:'category/view.html',  reloadOnSearch: false, controller:'category'});
 });

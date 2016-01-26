@@ -8,7 +8,7 @@ angular.module('myApp.config', [])
             {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
             {name: 'name', type: 'TEXT'},
             {name: 'address', type: 'TEXT'},
-            {name: 'icon', type: 'INTEGER'},
+            {name: 'icon', type: 'TEXT'},
             {name: 'tel', type: 'TEXT'}
         ]
       },

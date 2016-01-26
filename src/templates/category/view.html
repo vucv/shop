@@ -1,0 +1,25 @@
+<div ui-content-for="title">
+    <span>Category</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="delete(category.ID)">
+        <i class="fa fa-trash text-danger">  Xóa</i>
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <div class="row">
+            <div class="col-md-4 fa-3 pull-left"></div>
+            <div class="col-md-8 lead">
+                <h1>{{category.name}}</h1>
+            </div>
+        </div>
+        <div class="row text-center">
+            <a class="btn btn-primary span4" href="#/category/add?id={{category.ID}}">Cập nhập</a>
+            <a class="btn btn-default span4" href="#/category">Hủy</a>
+        </div>
+        <hr>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div ui-content-for="title">
+    <span>Thông tin Category</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a href="#/category{{category.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
+        <i class="fa fa-trash"></i> Hủy
+    </a>
+</div>
+<div class="scrollable">
+    <div class="scrollable-content section">
+
+        <form role="form" ng-submit='login()'>
+            <fieldset>
+                <input type="text"
+                       ng-model="category.name"
+                       label = ""
+                       class="form-control input-lg "
+                       placeholder="Tên loại">
+                <input type="text"
+                       label = ""
+                       ng-model="category.icon"
+                       class="form-control input-lg "
+                       placeholder="Chọn icon">
+            </fieldset>
+            <hr>
+
+            <button class="btn btn-primary btn-block" ng-click="save()">
+                Lưu thông tin
+            </button>
+        </form>
+    </div>
+</div>

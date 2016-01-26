@@ -9,7 +9,7 @@
 </div>
 
 <div ui-content-for="navbarAction">
-    <a href="#/store" ui-toggle="uiSidebarRight" class="btn">
+    <a href="#/store{{store.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
         <i class="fa fa-trash"></i> Hủy
     </a>
 </div>
@@ -19,17 +19,17 @@
         <form role="form" ng-submit='login()'>
             <fieldset>
                 <input type="text"
-                       ng-model="newStore.name"
+                       ng-model="store.name"
                        label = ""
                        class="form-control input-lg "
                        placeholder="Tên cửa hàng">
                 <input type="tel"
                        label = ""
-                       ng-model="newStore.tel"
+                       ng-model="store.tel"
                        class="form-control input-lg "
                        placeholder="Số điện thoại">
                 <input type="textarea"
-                       ng-model="newStore.address"
+                       ng-model="store.address"
                        label = ""
                        class="form-control input-lg "
                        placeholder="Địa chỉ">
