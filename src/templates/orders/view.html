@@ -1,0 +1,33 @@
+<div ui-content-for="title">
+    <span>Đơn hàng</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="deleteStore(orders.ID)">
+        <i class="fa fa-trash text-danger">  Xóa</i>
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <div class="row">
+            <h1>{{order.name}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-4 fa fa-phone fa-3 pull-left"></div>
+            <div class="col-md-8 lead"><a href="tel:{{order.tel}}">
+                {{order.tel}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 fa fa-home fa-3 pull-left"></div>
+            <div class="col-md-8 lead">
+                {{order.address}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <a class="btn btn-primary" href="#/orders/add?id={{order.ID}}">Cập nhập</a>
+            <a class="btn btn-default" href="#/orders">Hủy</a>
+        </div>
+    </div>
+</div>

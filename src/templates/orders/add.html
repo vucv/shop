@@ -1,0 +1,98 @@
+<div ui-content-for="title">
+    <span>Thông tin hóa đơn</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a href="#/orders{{order.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
+        <i class="fa fa-trash"></i> Hủy
+    </a>
+</div>
+<div class="scrollable">
+    <div class="scrollable-content section">
+
+        <form role="form">
+            <fieldset>
+                <label>Shop:</label>
+                <select class="form-control input-lg "
+                        ng-model="order.storeID"
+                        placeholder="Chọn shop">
+                    <option ng-repeat="option in stores" value="{{option.ID}}">{{option.name}}</option>
+                </select>
+                <label>Ngày:</label>
+                <input type="date"
+                       ng-model="order.date"
+                       label=""
+                       class="form-control input-lg "
+                       placeholder="Hôm nay">
+                <label>Ghi chú:</label>
+                <input type="textarea"
+                       ng-model="order.node"
+                       label=""
+                       class="form-control input-lg "
+                       placeholder="Ghi chú">
+
+            </fieldset>
+
+            <hr>
+            <div class="list-group">
+                <span class="list-group-item row " ui-turn-on="modal1">
+                    <i class="fa fa-plus"></i> Thêm sản phẩm
+                </span>
+                <a ng-repeat="item in orderDetails" class="list-group-item row">
+                    <i class="col-md-4">{{item.name}}</i>
+                    <i class="col-md-4">{{ item.total}}</i>
+                    <i class="col-md-4">{{ item.price}}</i>
+                </a>
+
+            </div>
+            <div ui-content-for="modals">
+                <div class="modal" ui-if='modal1' ui-state='modal1'>
+                    <div class="modal-backdrop in"></div>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close"
+                                        ui-turn-off="modal1">&times;</button>
+                                <h4 class="modal-title">Thêm sản phẩm vào đơn hàng</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label>Loại sản phẩm</label>
+                                <select class="form-control input-lg "
+                                        ng-model="orderDetail.categoryID"
+                                        placeholder="Chọn shop">
+                                    <option ng-repeat="option in categorys" value="{{option.ID}}">
+                                        {{option.name}}
+                                    </option>
+                                </select>
+                                <label>Sản phẩm:</label>
+                                <input type="text"
+                                       ng-model="orderDetail.name"
+                                       class="form-control input-lg "
+                                       placeholder="Tên sản phẩm">
+                                <label>Số lượng:</label>
+                                <input type="number"
+                                       ng-model="orderDetail.total"
+                                       class="form-control input-lg "
+                                       placeholder="Số lượng">
+                                <label>Giá:</label>
+                                <input type="number"
+                                       ng-model="orderDetail.price"
+                                       class="form-control input-lg "
+                                       placeholder="Giá">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button ui-turn-off="modal1" class="btn btn-primary" ng-click="addOrderDetail()">Thêm
+                                </button>
+                                <button ui-turn-off="modal1" class="btn btn-default">Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" ng-click="save()">
+                Lưu thông tin
+            </button>
+        </form>
+    </div>
+</div>

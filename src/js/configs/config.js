@@ -47,6 +47,7 @@ angular.module('myApp.config', [])
         {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
         {name: 'ordersID', type: 'INTEGER'},
         {name: 'productID', type: 'INTEGER'},
+        {name: 'total', type: 'INTEGER'},
         {name: 'price', type: 'INTEGER'}
         ]
       }
