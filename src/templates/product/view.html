@@ -1,0 +1,30 @@
+<div ui-content-for="title">
+    <span>{{product.category}}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="deleteStore(product.ID)">
+        <i class="fa fa-trash text-danger">  Xóa</i>
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <div class="row">
+            <h1>{{product.name}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Đã bán</div>
+            <div class="col-md-8 lead"></a></div>
+
+            <div class="col-md-4">Trong kho</div>
+            <div class="col-md-8 lead"></a></div>
+        </div>
+        <div class="row">
+            <a class="btn btn-primary" href="#/product/add?id={{product.ID}}">Cập nhập</a>
+            <a class="btn btn-default" href="#/product">Hủy</a>
+        </div>
+        <hr>
+        <h5>Các shop đã lấy hàng</h5>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div ui-yield-to="backAction">
+    <a href="#/controller" ui-toggle="uiSidebarLeft" class="btn">
+        <i class="fa fa-angle-left"></i> Controller
+    </a>
+</div>
+
+<div ui-content-for="title">
+    <span>Thông tin của hàng</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a href="#/product{{product.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
+        <i class="fa fa-trash"></i> Hủy
+    </a>
+</div>
+<div class="scrollable">
+    <div class="scrollable-content section">
+
+        <form role="form">
+            <select class="form-control input-lg "
+                    ng-model="product.categoryID"
+                    placeholder="Chọn loại">
+                <option ng-repeat="option in categories" value="{{option.ID}}">{{option.name}}</option>
+            </select>
+            <input type="text"
+                   ng-model="product.name"
+                   label=""
+                   class="form-control input-lg "
+                   placeholder="Tên sản phẩm">
+            <hr>
+
+            <button class="btn btn-primary btn-block" ng-click="save()">
+                Lưu thông tin
+            </button>
+        </form>
+    </div>
+</div>

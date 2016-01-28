@@ -1,9 +1,9 @@
 <div ui-content-for="title">
-    <span>Thể loại đồ</span>
+    <span>DS hóa đơn</span>
 </div>
 
 <div ui-content-for="navbarAction">
-    <a href="#/category/add" ui-toggle="uiSidebarRight" class="btn">
+    <a href="#/sales/add" ui-toggle="uiSidebarRight" class="btn">
         <i class="fa fa-plus"></i> Thêm
     </a>
 </div>
@@ -13,15 +13,17 @@
             ng-if="Ui.active('searchBar')"
             type="search"
             class="form-control scrollable-header"
-            placeholder="Tìm nhanh ..." />
+            placeholder="Tìm nhanh ..."/>
 
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div class="list-group">
-            <a ng-repeat="item in categorys" href="#/category/view?id={{item.ID}}" class="list-group-item row">
-                <i class="col-md-4">{{item.icon}}</i>
-                <i class="col-md-8"><h1>{{ item.name }}</h1></i>
-            </a>
-
+        <div ng-repeat="date in orders" class="">
+            <h4 class="text-center">{{ date.title }}</h4>
+            <div class="list-group">
+                <a ng-repeat="item in date.orders" href="#/sales/view?id={{item.ID}}" class="list-group-item row">
+                    <i class="col-md-4">{{item.ID}}</i>
+                    <i class="col-md-8">{{ item.name }}</i>
+                </a>
+            </div>
         </div>
     </div>
 

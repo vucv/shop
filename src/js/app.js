@@ -10,13 +10,16 @@ angular.module('MyApp', [
     'MyApp.controllers.category',
     'myApp.services.orders',
     'MyApp.controllers.orders',
+    'myApp.services.product',
+    'MyApp.controllers.product',
+    'MyApp.controllers.sale',
     'myApp.controllers'
 ])
     .run(function (DB) {
         DB.init();
     })
     .config(function ($routeProvider) {
-        $routeProvider.when('/', {templateUrl: 'home.html', reloadOnSearch: false});
+        $routeProvider.when('/', {templateUrl: 'home.html', reloadOnSearch: false, controller: 'sale'});
         $routeProvider.when('/nhapDonHang', {
             templateUrl: 'nhapDonHang.html',
             reloadOnSearch: false,
@@ -63,5 +66,35 @@ angular.module('MyApp', [
             templateUrl: 'orders/view.html',
             reloadOnSearch: false,
             controller: 'orders'
+        });
+        $routeProvider.when('/product', {
+            templateUrl: 'product/list.html',
+            reloadOnSearch: false,
+            controller: 'product'
+        });
+        $routeProvider.when('/product/add', {
+            templateUrl: 'product/add.html',
+            reloadOnSearch: false,
+            controller: 'product'
+        });
+        $routeProvider.when('/product/view', {
+            templateUrl: 'product/view.html',
+            reloadOnSearch: false,
+            controller: 'product'
+        });
+        $routeProvider.when('/sales', {
+            templateUrl: 'sales/list.html',
+            reloadOnSearch: false,
+            controller: 'sale'
+        });
+        $routeProvider.when('/sales/add', {
+            templateUrl: 'sales/add.html',
+            reloadOnSearch: false,
+            controller: 'sale'
+        });
+        $routeProvider.when('/sales/view', {
+            templateUrl: 'sales/view.html',
+            reloadOnSearch: false,
+            controller: 'sale'
         });
     });

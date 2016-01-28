@@ -13,15 +13,17 @@
             ng-if="Ui.active('searchBar')"
             type="search"
             class="form-control scrollable-header"
-            placeholder="Tìm nhanh ..." />
+            placeholder="Tìm nhanh ..."/>
 
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div class="list-group">
-            <a ng-repeat="item in orders" href="#/orders/view?id={{item.ID}}" class="list-group-item row">
-                <i class="col-md-4">{{item.ID}}</i>
-                <i class="col-md-8">{{ item.date }}</i>
-            </a>
-
+        <div ng-repeat="date in orders" class="">
+            <h4 class="text-center">{{ date.title }}</h4>
+            <div class="list-group">
+                <a ng-repeat="item in date.orders" href="#/orders/view?id={{item.ID}}" class="list-group-item row">
+                    <i class="col-md-4">{{item.ID}}</i>
+                    <i class="col-md-8">{{ item.name }}</i>
+                </a>
+            </div>
         </div>
     </div>
 

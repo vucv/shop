@@ -1,9 +1,9 @@
 <div ui-content-for="title">
-    <span>Thể loại đồ</span>
+    <span>DS sản phẩm</span>
 </div>
 
 <div ui-content-for="navbarAction">
-    <a href="#/category/add" ui-toggle="uiSidebarRight" class="btn">
+    <a href="#/product/add" ui-toggle="uiSidebarRight" class="btn">
         <i class="fa fa-plus"></i> Thêm
     </a>
 </div>
@@ -17,9 +17,9 @@
 
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
         <div class="list-group">
-            <a ng-repeat="item in categorys" href="#/category/view?id={{item.ID}}" class="list-group-item row">
-                <i class="col-md-4">{{item.icon}}</i>
-                <i class="col-md-8"><h1>{{ item.name }}</h1></i>
+            <a ng-repeat="item in products" href="#/product/view?id={{item.ID}}" class="list-group-item row">
+                <i class="col-md-4">{{item.name.charAt(0)}}</i>
+                <i class="col-md-8">{{ item.name }}</i>
             </a>
 
         </div>

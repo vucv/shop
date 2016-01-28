@@ -1,7 +1,7 @@
-angular.module('MyApp.controllers.orders', ['myApp.services.orders','myApp.services.store',
+angular.module('MyApp.controllers.sale', ['myApp.services.orders','myApp.services.store',
     'myApp.services.category','myApp.services.product', 'ngRoute'])
 
-    .controller('orders', function ($scope, $location, $routeParams, ordersDB, storeDB, categoryDB, productDB) {
+    .controller('sale', function ($scope, $location, $routeParams, ordersDB, storeDB, categoryDB, productDB) {
         $scope.orders = [];
         $scope.order;
         $scope.orderDetails= [];
@@ -10,14 +10,10 @@ angular.module('MyApp.controllers.orders', ['myApp.services.orders','myApp.servi
         $scope.categorys=[];
         $scope.today= new Date().toLocaleDateString();
 
-        ordersDB.all().then(function (orders) {
+        ordersDB.allSale().then(function (orders) {
             $scope.orders = orders;
-            $scope.listdate = Object.keys(orders);
         });
         //Get list shop store
-        storeDB.all().then(function (stores) {
-            $scope.stores = stores;
-        });
         productDB.all().then(function (products) {
             $scope.products = products;
         });
@@ -38,31 +34,28 @@ angular.module('MyApp.controllers.orders', ['myApp.services.orders','myApp.servi
 
 
         $scope.save = function () {
-            storeDB.getIdByName($scope.order.storeName).then(function (storeID) {
-                if (!$scope.order.ID) {
-                    ordersDB.create(storeID, 0, $scope.order.date.toLocaleDateString(), $scope.order.note)
-                        .then(function (result) {
-                            //Do something
-                            if (result.rowsAffected != 0) {
-                                //Insert order details
-                                addDetail(result.insertId);
-                            } else {
-                                alert("Quá trình lưu bị lỗi !!!")
-                            }
-                        });
-                }else{
-                    ordersDB.updateByID($scope.order.ID, storeID, $scope.order.date.toLocaleDateString(), $scope.order.note)
-                        .then(function (result) {
-                            //Do something
-                            if (result.rowsAffected != 0) {
-                                $location.path('/orders');
-                            } else {
-                                alert("Quá trình lưu bị lỗi !!!")
-                            }
-                        });
-                }
-            });
-
+            if (!$scope.order.ID) {
+                ordersDB.create(null, 1, $scope.order.date.toLocaleDateString(), $scope.order.note)
+                    .then(function (result) {
+                        //Do something
+                        if (result.rowsAffected != 0) {
+                            //Insert order details
+                            addDetail(result.insertId);
+                        } else {
+                            alert("Quá trình lưu bị lỗi !!!")
+                        }
+                    });
+            }else{
+                ordersDB.updateByID($scope.order.ID, null, $scope.order.date.toLocaleDateString(), $scope.order.note)
+                    .then(function (result) {
+                        //Do something
+                        if (result.rowsAffected != 0) {
+                            $location.path('/sales');
+                        } else {
+                            alert("Quá trình lưu bị lỗi !!!")
+                        }
+                    });
+            }
         };
 
         function addDetail (orderID) {
@@ -78,7 +71,7 @@ angular.module('MyApp.controllers.orders', ['myApp.services.orders','myApp.servi
                             //Do something
                             count --;
                             if (count == 0) {
-                                $location.path('/orders');
+                                $location.path('/sales');
                             }
                         });
                 });
@@ -90,7 +83,7 @@ angular.module('MyApp.controllers.orders', ['myApp.services.orders','myApp.servi
             ordersDB.deleteByID(id)
                 .then(function () {
                     //Do somethin
-                    $location.path('/category');
+                    $location.path('/sales');
                 });
         };
 

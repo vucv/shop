@@ -3,7 +3,7 @@
 </div>
 
 <div ui-content-for="navbarAction">
-    <a href="#/orders{{order.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
+    <a href="#/sales{{order.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
         <i class="fa fa-trash"></i> Hủy
     </a>
 </div>
@@ -11,12 +11,6 @@
     <div class="scrollable-content section">
 
         <form role="form">
-            <datalist id="stores">
-                <option ng-repeat="option in stores" value="{{option.name}}">
-            </datalist>
-            <input type="text" list="stores"  class="form-control input-lg "
-                    ng-model="order.storeName"
-                    placeholder="Chọn shop">
             <input type="date"
                    ng-model="order.date"
                    class="form-control input-lg "
@@ -80,7 +74,7 @@
                 </div>
             </div>
             <button class="btn btn-primary btn-block" ng-click="save()">
-                Lưu thông tin
+                Bán
             </button>
         </form>
     </div>
