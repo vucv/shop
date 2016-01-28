@@ -10,16 +10,48 @@
 
 <div class="scrollable">
     <div class="scrollable-content section">
-        <div class="row">
-            <div class="col-md-4 fa-3 pull-left"></div>
-            <div class="col-md-8 lead">
-                <h1>{{category.name}}</h1>
-            </div>
-        </div>
+        <table>
+            <tr>
+                <td><div class="{{category.icon?'icons-set '+ category.icon : 'miss-image fa fa-picture-o'}}"></div></td>
+                <td class="icon-list-item"><h1>{{category.name}}</h1></td>
+                <td>
+                    <a class="btn btn-primary button-edit" href="#/category/add?id={{category.ID}}">Cập nhập</a>
+                    <a class="btn btn-default button-edit" href="#/category">Hủy</a>
+                </td>
+            </tr>
+            <tr class="small">
+                <td>Nhập hàng</td>
+                <td class="text-right">{{category.im}} cái</td>
+                <td class="text-right">{{category.imValue}}k</td>
+            </tr>
+            <tr class="small">
+                <td>Bán</td>
+                <td class="text-right">{{category.ex}} cái</td>
+                <td class="text-right">{{category.exValue}}k</td>
+            </tr>
+        </table>
         <div class="row text-center">
-            <a class="btn btn-primary span4" href="#/category/add?id={{category.ID}}">Cập nhập</a>
-            <a class="btn btn-default span4" href="#/category">Hủy</a>
+
         </div>
+        <br>
+        <h4><strong>Thống kê các sản phẩm {{category.name}}</strong></h4>
         <hr>
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Nhập hàng</th>
+                <th></th>
+                <th>Bán</th>
+            </tr>
+            <tr ng-repeat="item in listProduct">
+                <th>{{item.name}}</th>
+                <td class="text-right">{{item.im}} cái</td>
+                <td class="text-right">{{item.imValue}}k</td>
+                <td class="text-right">{{item.ex}} cái</td>
+                <td class="text-right">{{item.exValue}}k</td>
+            </tr>
+        </table>
+
     </div>
 </div>

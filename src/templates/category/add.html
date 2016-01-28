@@ -10,24 +10,73 @@
 <div class="scrollable">
     <div class="scrollable-content section">
 
-        <form role="form" ng-submit='login()'>
-            <fieldset>
-                <input type="text"
-                       ng-model="category.name"
-                       label = ""
-                       class="form-control input-lg "
-                       placeholder="Tên loại">
-                <input type="text"
-                       label = ""
-                       ng-model="category.icon"
-                       class="form-control input-lg "
-                       placeholder="Chọn icon">
-            </fieldset>
+        <form role="form">
+            <input type="text"
+                   ng-model="category.name"
+                   class="form-control input-lg "
+                   placeholder="Tên loại">
+            <table>
+                <tr>
+                    <td>
+                        <div class="{{category.icon?'icons-set '+ category.icon : 'miss-image fa fa-picture-o'}}"></div>
+                    </td>
+                    <td class="icon-list-item">
+                        <button class="form-control input-lg "
+                                type="button"
+                                ui-turn-on="modal2">Chọn icon
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+
             <hr>
 
             <button class="btn btn-primary btn-block" ng-click="save()">
                 Lưu thông tin
             </button>
+
+
+            <div ui-content-for="modals">
+                <div class="modal" ui-if='modal2' ui-state='modal2'>
+                    <div class="modal-backdrop in"></div>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close"
+                                        ui-turn-off="modal2">&times;</button>
+                                <h4 class="modal-title">Chọn icon</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="scrollable icon-list section">
+                                    <div class="scrollable-content">
+                                        <table>
+                                            <tr class="col-md-3" ng-repeat="option in iconList">
+                                                <td>
+                                                    <div class="icons-set {{option}}"></div>
+                                                </td>
+                                                <td class="icon-list-item"><label class="icon-list-item"
+                                                                                  for="{{ option }}">{{ option
+                                                    }}</label></td>
+                                                <td><input type="radio"
+                                                           class="input-lg pull-right"
+                                                           ng-model="category.icon"
+                                                           value="{{ option }}"
+                                                           name="icon"
+                                                           id="{{ option }}"></td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button ui-turn-off="modal2" class="btn btn-default">Xong</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>

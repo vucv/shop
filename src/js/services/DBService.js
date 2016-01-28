@@ -50,7 +50,7 @@ angular.module('myApp.services', ['myApp.config'])
         if(result.rows.length != 0){
             return result.rows.item(0);
         }
-        return;
+        return {};
     };
 
     return self;

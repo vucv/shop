@@ -6,15 +6,26 @@ angular.module('MyApp.controllers.category', ['myApp.services.category', 'ngRout
         categoryDB.all().then(function (categorys) {
             $scope.categorys = categorys;
         });
-        categoryDB.getById($routeParams.id).then(function (category) {
-            $scope.category = category;
-        });
+
+        if ($routeParams.id) {
+            categoryDB.getById($routeParams.id).then(function (category) {
+                $scope.category = category;
+            });
+
+            categoryDB.getListProduct($routeParams.id).then(function (listProduct) {
+                $scope.listProduct = listProduct;
+            });
+        }
 
         $scope.getAll = function () {
             categoryDB.all().then(function (categorys) {
                 return categorys;
             });
         };
+
+        $scope.iconList = ['ao1', 'ao2', 'ao3', 'ao4',
+            'dam1', 'dam2', 'dam3', 'dam4',
+            'jean1', 'jean2', 'jean3', 'jean4'];
 
         $scope.save = function () {
             if (!$scope.category.ID) {
@@ -27,7 +38,7 @@ angular.module('MyApp.controllers.category', ['myApp.services.category', 'ngRout
                             alert("Quá trình lưu bị lỗi !!!")
                         }
                     });
-            }else{
+            } else {
                 categoryDB.updateByID($scope.category.ID, $scope.category.name, $scope.category.icon)
                     .then(function (result) {
                         //Do something

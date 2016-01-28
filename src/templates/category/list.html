@@ -9,26 +9,16 @@
 </div>
 
 <div class="scrollable" ui-state="searchBar">
-    <input
-            ng-if="Ui.active('searchBar')"
-            type="search"
-            class="form-control scrollable-header"
-            placeholder="Tìm nhanh ..." />
-
-    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div class="list-group">
-            <a ng-repeat="item in categorys" href="#/category/view?id={{item.ID}}" class="list-group-item row">
-                <i class="col-md-4">{{item.icon}}</i>
-                <i class="col-md-8"><h1>{{ item.name }}</h1></i>
-            </a>
-
-        </div>
+    <div class="scrollable-content section" >
+        <table>
+            <tr ng-repeat="item in categorys">
+                <td>
+                    <div class="{{item.icon?'icons-set '+ item.icon : 'miss-image fa fa-picture-o'}}"></div>
+                </td>
+                <td class="icon-list-item">
+                    <a href="#/category/view?id={{item.ID}}"><h1>{{item.name}}</h1></a>
+                </td>
+            </tr>
+        </table>
     </div>
-
-    <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
-        <i class="fa fa-search"></i>
-        <span ui-hide="searchBar">Show</span>
-        <span ui-show="searchBar">Hide</span>
-        Search Bar
-    </a>
 </div>
