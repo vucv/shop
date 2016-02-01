@@ -1,6 +1,7 @@
 angular.module('MyApp', [
     'ngRoute',
     'mobile-angular-ui',
+    'mobile-angular-ui.core.sharedState',
     'MyApp.controllers.Main',
     'MyApp.controllers.nhapDonHang',
     'myApp.services',
@@ -19,7 +20,7 @@ angular.module('MyApp', [
         DB.init();
     })
     .config(function ($routeProvider) {
-        $routeProvider.when('/', {templateUrl: 'home.html', reloadOnSearch: false, controller: 'sale'});
+        $routeProvider.when('/', {templateUrl: 'sales/quick.html', reloadOnSearch: false, controller: 'sale'});
         $routeProvider.when('/nhapDonHang', {
             templateUrl: 'nhapDonHang.html',
             reloadOnSearch: false,

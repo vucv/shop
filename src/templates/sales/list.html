@@ -8,29 +8,18 @@
     </a>
 </div>
 
-<div class="scrollable" ui-state="searchBar">
-    <input
-            ng-if="Ui.active('searchBar')"
-            type="search"
-            class="form-control scrollable-header"
-            placeholder="Tìm nhanh ..."/>
+<div class="scrollable">
 
-    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div ng-repeat="date in orders" class="">
+    <div class="scrollable-content">
+        <div ng-repeat="date in sales" class="">
             <h4 class="text-center">{{ date.title }}</h4>
             <div class="list-group">
                 <a ng-repeat="item in date.orders" href="#/sales/view?id={{item.ID}}" class="list-group-item row">
                     <i class="col-md-4">{{item.ID}}</i>
                     <i class="col-md-8">{{ item.name }}</i>
+                    <i class="col-md-8">{{ item.price }}</i>
                 </a>
             </div>
         </div>
     </div>
-
-    <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
-        <i class="fa fa-search"></i>
-        <span ui-hide="searchBar">Show</span>
-        <span ui-show="searchBar">Hide</span>
-        Search Bar
-    </a>
 </div>

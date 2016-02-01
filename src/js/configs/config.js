@@ -50,6 +50,16 @@ angular.module('myApp.config', [])
         {name: 'total', type: 'INTEGER'},
         {name: 'price', type: 'INTEGER'}
         ]
+      },
+      {
+        name: 'sale',
+        columns: [
+        {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+        {name: 'date', type: 'INTEGER'},
+        {name: 'productID', type: 'INTEGER'},
+        {name: 'total', type: 'INTEGER'},
+        {name: 'price', type: 'INTEGER'}
+        ]
       }
     ]
 });

@@ -3,7 +3,7 @@
 </div>
 
 <div ui-content-for="navbarAction">
-    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="deleteStore(orders.ID)">
+    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="delete(order.ID)">
         <i class="fa fa-trash text-danger">  Xóa</i>
     </a>
 </div>
@@ -11,23 +11,106 @@
 <div class="scrollable">
     <div class="scrollable-content section">
         <div class="row">
-            <h1>{{order.name}}</h1>
+            <h1 class="text-center">{{order.name}}</h1>
         </div>
-        <div class="row">
-            <div class="col-md-4 fa fa-phone fa-3 pull-left"></div>
-            <div class="col-md-8 lead"><a href="tel:{{order.tel}}">
-                {{order.tel}}</a>
+        <table>
+            <tr>
+                <td><i class="fa fa-phone fa-3x"></i></td>
+                <td class="icon-list-item">
+                    <a href="tel:{{store.tel}}"><h2> {{order.tel}}</h2></a>
+                </td>
+                <td><a class="btn btn-primary button-edit" href="#/orders/add?id={{order.ID}}">Cập nhập</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-home fa-3x"></i>
+                </td>
+                <td class="icon-list-item">
+                    <span class=""> {{store.address}}</span>
+                </td>
+                <td><a class="btn btn-default button-edit" href="#/orders">Hủy</a></td>
+            </tr>
+        </table>
+
+        <div>
+                <span class="row pull-right" ng-click="addOrderButton()">
+                    <i class="fa fa-plus"></i> Thêm sản phẩm
+                </span>
+            <br>
+            <hr>
+            <table class="order">
+                <tr>
+                    <th style="width: 50%;">Sản phẩm</th>
+                    <th>SL</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
+                    <th>Sửa/Xóa</th>
+                </tr>
+                <tr ng-repeat="item in orderDetails" >
+                    <td>{{item.productName}}</td>
+                    <td class="text-right">{{item.total}}</td>
+                    <td class="text-right">{{item.price}}</td>
+                    <td class="text-right">{{item.price * item.total}}</td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="deleteOrderDetail($index)">Xóa</button>
+                        <button class="btn btn-primary" ng-click="editOrderDetail($index)">Sửa</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{orderDetails.total}}</td>
+                </tr>
+            </table>
+        </div>
+        <div ui-content-for="modals">
+            <div class="modal" ui-if='modal1' ui-state='modal1'>
+                <div class="modal-backdrop in"></div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close"
+                                    ui-turn-off="modal1">&times;</button>
+                            <h4 class="modal-title">Thêm sản phẩm vào đơn hàng</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label>Loại sản phẩm</label>
+                            <select class="form-control input-lg "
+                                    ng-model="orderDetail.categoryID"
+                                    placeholder="Chọn shop">
+                                <option value="">-- Chọn thể loại đồ --</option>
+                                <option ng-repeat="option in categorys"
+                                        ng-selected="orderDetail.categoryID==option.ID"
+                                        value="{{option.ID}}">{{option.name}}
+                                </option>
+                            </select>
+                            <datalist id="products">
+                                <option ng-repeat="option in products" value="{{option.name}}">
+                            </datalist>
+                            <input type="text"
+                                   list="products"
+                                   ng-model="orderDetail.productName"
+                                   class="form-control input-lg "
+                                   placeholder="Tên sản phẩm">
+                            <input type="number"
+                                   ng-model="orderDetail.total"
+                                   class="form-control input-lg "
+                                   placeholder="Số lượng">
+                            <input type="number"
+                                   ng-model="orderDetail.price"
+                                   class="form-control input-lg "
+                                   placeholder="Giá">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"
+                                    ng-click="addOrderDetail()">{{isAdd?'Thêm sản phẩm':'Lưu thay đổi'}}</button>
+                            <button ui-turn-off="modal1" class="btn btn-default">Hủy</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 fa fa-home fa-3 pull-left"></div>
-            <div class="col-md-8 lead">
-                {{order.address}}</a>
-            </div>
-        </div>
-        <div class="row">
-            <a class="btn btn-primary" href="#/orders/add?id={{order.ID}}">Cập nhập</a>
-            <a class="btn btn-default" href="#/orders">Hủy</a>
         </div>
     </div>
 </div>

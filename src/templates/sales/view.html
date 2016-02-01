@@ -3,7 +3,7 @@
 </div>
 
 <div ui-content-for="navbarAction">
-    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="deleteStore(orders.ID)">
+    <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="delete(sale.ID)">
         <i class="fa fa-trash text-danger">  Xóa</i>
     </a>
 </div>
@@ -11,23 +11,19 @@
 <div class="scrollable">
     <div class="scrollable-content section">
         <div class="row">
-            <h1>{{order.name}}</h1>
+            <h3 class="text-center">Ngày {{sale.dateTitle}}</h3>
         </div>
-        <div class="row">
-            <div class="col-md-4 fa fa-phone fa-3 pull-left"></div>
-            <div class="col-md-8 lead"><a href="tel:{{order.tel}}">
-                {{order.tel}}</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 fa fa-home fa-3 pull-left"></div>
-            <div class="col-md-8 lead">
-                {{order.address}}</a>
-            </div>
-        </div>
-        <div class="row">
-            <a class="btn btn-primary" href="#/sales/add?id={{order.ID}}">Cập nhập</a>
-            <a class="btn btn-default" href="#/sales">Hủy</a>
-        </div>
+        <table>
+            <tr>
+                <td><div class="{{sale.icon?'icons-set '+ sale.icon : 'miss-image fa fa-picture-o'}}"></div></td>
+                <td class="icon-list-item"><h3>{{sale.productName}}</h3>
+                <span>Giá : {{sale.price}}k</span>
+                </td>
+                <td>
+                    <a class="btn btn-primary button-edit" href="#/sales/add?id={{sale.ID}}">Cập nhập</a>
+                    <a class="btn btn-default button-edit" href="#/sales">Hủy</a>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
