@@ -13,18 +13,35 @@
         <div class="row">
             <h1>{{product.name}}</h1>
         </div>
-        <div class="row">
-            <div class="col-md-4">Đã bán</div>
-            <div class="col-md-8 lead"></a></div>
-
-            <div class="col-md-4">Trong kho</div>
-            <div class="col-md-8 lead"></a></div>
-        </div>
-        <div class="row">
-            <a class="btn btn-primary" href="#/product/add?id={{product.ID}}">Cập nhập</a>
-            <a class="btn btn-default" href="#/product">Hủy</a>
-        </div>
+        <table>
+            <tr>
+                <td class="icon-list-item">
+                    <div><p class="pull-left">Nhập :</p><p class="text-right">{{product.im}} cái</p></div>
+                    <div><p class="pull-left">Kho :</p><p class="text-right">{{product.im - product.ex}} cái</p></div>
+                    <div><p class="pull-left">Giá :</p><p class="text-right">{{product.price}}k</p></div>
+                </td>
+                <td>
+                    <a class="btn btn-primary button-edit" href="#/product/add?id={{product.ID}}">Cập nhập</a>
+                    <a class="btn btn-default button-edit" href="#/product">Hủy</a>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <h3>Lịch sử lấy hàng:</h3>
         <hr>
-        <h5>Các shop đã lấy hàng</h5>
+        <table>
+            <tr>
+                <th>Shop</th>
+                <th>Lần lấy</th>
+                <th>Số lương</th>
+                <th>Tiền</th>
+            </tr>
+            <tr ng-repeat="date in listStore">
+                <td>{{date.name}}</td>
+                <td>{{date.number}}</td>
+                <td>{{date.im}} cái</td>
+                <td>{{date.imValue}}k</td>
+            </tr>
+        </table>
     </div>
 </div>

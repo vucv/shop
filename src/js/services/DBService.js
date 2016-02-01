@@ -53,6 +53,32 @@ angular.module('myApp.services', ['myApp.config'])
         return {};
     };
 
+        self.fetchOder = function(result) {
+            var days = {};
+            if(result.rows.length == 0){
+                days.isEmpty = true;
+            }
+            for (var i = 0; i < result.rows.length; i++) {
+                if(!days[result.rows.item(i).date]) {
+                    days[result.rows.item(i).date]={};
+                    days[result.rows.item(i).date].title=result.rows.item(i).date;
+                    days[result.rows.item(i).date].total=0;
+                    days[result.rows.item(i).date].price=0;
+                    days[result.rows.item(i).date].orders=[];
+                }
+                days[result.rows.item(i).date].orders.push(result.rows.item(i));
+                if(isNaN(Number(result.rows.item(i).total))){
+                    result.rows.item(i).total=0;
+                }
+                if(isNaN(Number(result.rows.item(i).price))) {
+                    result.rows.item(i).price = 0;
+                }
+                days[result.rows.item(i).date].total+=result.rows.item(i).total;
+                days[result.rows.item(i).date].price += (result.rows.item(i).price * result.rows.item(i).total);
+            }
+            return days;
+        };
+
     return self;
 })
 // Resource service example

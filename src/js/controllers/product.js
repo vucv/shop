@@ -1,6 +1,6 @@
-angular.module('MyApp.controllers.product', ['myApp.services.product', 'myApp.services.category', 'ngRoute'])
+angular.module('MyApp.controllers.product', ['myApp.services.product', 'myApp.services.category', 'myApp.services.store', 'ngRoute'])
 
-    .controller('product', function ($scope, $location, $routeParams, productDB, categoryDB) {
+    .controller('product', function ($scope, $location, $routeParams, productDB, categoryDB, storeDB) {
         $scope.products = [];
         $scope.product;
         productDB.all().then(function (products) {
@@ -11,11 +11,21 @@ angular.module('MyApp.controllers.product', ['myApp.services.product', 'myApp.se
             $scope.categories = categories;
         });
 
-        productDB.getById($routeParams.id).then(function (product) {
-            $scope.product = product;
-        });
+        if($routeParams.id){
+            productDB.getById($routeParams.id).then(function (product) {
+                $scope.product = product;
+            });
+
+            storeDB.allByProductID($routeParams.id).then(function (listStore) {
+                $scope.listStore = listStore;
+            });
+        }
 
         $scope.save = function () {
+            if (!$scope.product || !$scope.product.categoryID || !$scope.product.name) {
+                alert("Vui lòng nhập đầy đủ thông tin");
+                return;
+            }
             if (!$scope.product.ID) {
                 productDB.create($scope.product.categoryID, $scope.product.name, $scope.product.icon, $scope.product.image)
                     .then(function (result) {
@@ -39,10 +49,17 @@ angular.module('MyApp.controllers.product', ['myApp.services.product', 'myApp.se
             }
         };
         $scope.deleteStore = function (id) {
-            productDB.deleteByID(id)
-                .then(function () {
-                    //Do somethin
-                    $location.path('/product');
-                });
+            if($scope.listStore.length != 0){
+                alert("Phải xóa hết các hóa đơn mua bán sản phẩm \"" + $scope.product.name + "\" trước !!!");
+                return;
+            }
+            var ok = confirm("Xóa sản phầm " + $scope.product.name + " ?");
+            if (ok) {
+                productDB.deleteByID(id)
+                    .then(function () {
+                        //Do somethin
+                        $location.path('/product');
+                    });
+            }
         };
     });

@@ -3,7 +3,7 @@ angular.module('myApp.services.product', [])
         var self = this;
 
         self.all = function () {
-            return DB.query('SELECT * FROM product')
+            return DB.query('SELECT product.*, category.icon FROM product LEFT JOIN category ON  product.categoryID = category.ID')
                 .then(function (result) {
                     return DB.fetchAll(result);
                 });
@@ -23,7 +23,7 @@ angular.module('myApp.services.product', [])
         };
 
         self.getById = function (id) {
-            return DB.query('SELECT product.*, category.name category FROM product,category  WHERE product.ID=category.ID and product.ID = ?', [id])
+            return DB.query('SELECT product.*, category.name category, sum(CASE WHEN orders.type= 0 then total End) im, sum(CASE WHEN orders.type= 1 then total End) ex FROM product LEFT JOIN category ON product.ID=category.ID LEFT JOIN order_detail ON order_detail.productID=product.ID LEFT JOIN orders ON order_detail.ordersID =orders.ID WHERE product.ID = ?', [id])
                 .then(function (result) {
                     console.log(JSON.stringify(result));
                     return DB.fetch(result);

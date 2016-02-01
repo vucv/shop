@@ -15,14 +15,13 @@
             class="form-control scrollable-header"
             placeholder="Tìm nhanh ..." />
 
-    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div class="list-group">
-            <a ng-repeat="item in products" href="#/product/view?id={{item.ID}}" class="list-group-item row">
-                <i class="col-md-4">{{item.name.charAt(0)}}</i>
-                <i class="col-md-8">{{ item.name }}</i>
-            </a>
-
-        </div>
+    <div class="scrollable-content section">
+        <table>
+            <tr ng-repeat="item in products">
+                <td><i class="{{item.icon?'icons-set '+ item.icon : 'miss-image fa fa-picture-o'}}"></i></td>
+                <td class="icon-list-item"><a href="#/product/view?id={{item.ID}}"><h2>{{ item.name }}</h2></a></td>
+            </tr>
+        </table>
     </div>
 
     <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>

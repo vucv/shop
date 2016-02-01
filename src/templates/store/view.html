@@ -4,30 +4,100 @@
 
 <div ui-content-for="navbarAction">
     <a class="btn text-danger" ui-toggle="uiSidebarRight" ng-click="deleteStore(store.ID)">
-        <i class="fa fa-trash text-danger">  Xóa</i>
+        <i class="fa fa-trash text-danger"> Xóa</i>
     </a>
 </div>
 
 <div class="scrollable">
     <div class="scrollable-content section">
         <div class="row">
-            <h1>{{store.name}}</h1>
+            <h1 class="text-center">{{store.name}}</h1>
         </div>
-        <div class="row">
-            <div class="col-md-4 fa fa-phone fa-3 pull-left"></div>
-            <div class="col-md-8 lead"><a href="tel:{{store.tel}}">
-                {{store.tel}}</a>
+        <table>
+            <tr>
+                <td><i class="fa fa-phone fa-3x"></i></td>
+                <td class="icon-list-item">
+                    <a href="tel:{{store.tel}}"><h2> {{store.tel}}</h2></a>
+                </td>
+                <td><a class="btn btn-primary button-edit" href="#/store/add?id={{store.ID}}">Cập nhập</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-home fa-3x"></i>
+                </td>
+                <td class="icon-list-item">
+                    <span class=""> {{store.address}}</span>
+                </td>
+                <td><a class="btn btn-default button-edit" href="#/store">Hủy</a></td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td>Tổng giao dịch</td>
+                <td class="text-right">{{store.im}} cái</td>
+                <td class="text-right">{{store.imValue}}k</td>
+            </tr>
+        </table>
+        <br>
+        <h3>Lịch sử lấy hàng:</h3>
+        <hr>
+        <table>
+            <tr ng-repeat="date in listOrder">
+                <td>{{date.title}}</td>
+                <td>{{date.total}} cái</td>
+                <td>{{date.price}}k</td>
+                <td><a class="btn btn-default button-edit" ui-turn-on="modalStoreView" ng-click="detail(date.title)">Chi tiết</a></td>
+            </tr>
+        </table>
+
+        <div ui-content-for="modals">
+            <div class="modal" ui-if='modalStoreView' ui-state='modalStoreView'>
+                <div class="modal-backdrop in"></div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close"
+                                    ui-turn-off="modalStoreView">&times;</button>
+                            <h4 class="modal-title">Ngày {{orderInDate.title}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="scrollable icon-list">
+                                <div class="scrollable-content">
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Tiền</th>
+                                        </tr>
+                                        <tr class="col-md-3" ng-repeat="item in orderInDate.orders">
+                                            <td>
+                                                <i class="icon-2x icons-set {{item.icon}}"></i>
+                                            </td>
+                                            <td>{{item.name}}</td>
+                                            <td class="text-right">{{item.total}} cái</td>
+                                            <td class="text-right">x {{item.price}}k</td>
+                                            <td class="text-right">{{item.price*item.total}}k</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tổng</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">{{orderInDate.price}}k</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button ui-turn-off="modalStoreView" class="btn btn-default">Đóng</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 fa fa-home fa-3 pull-left"></div>
-            <div class="col-md-8 lead">
-                {{store.address}}</a>
-            </div>
-        </div>
-        <div class="row">
-            <a class="btn btn-primary" href="#/store/add?id={{store.ID}}">Cập nhập</a>
-            <a class="btn btn-default" href="#/store">Hủy</a>
         </div>
     </div>
 </div>

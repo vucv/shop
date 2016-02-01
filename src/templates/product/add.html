@@ -18,9 +18,11 @@
 
         <form role="form">
             <select class="form-control input-lg "
-                    ng-model="product.categoryID"
-                    placeholder="Chọn loại">
-                <option ng-repeat="option in categories" value="{{option.ID}}">{{option.name}}</option>
+                    ng-model="product.categoryID">
+                <option value="">-- Chọn thể loại đồ --</option>
+                <option ng-repeat="option in categories"
+                        ng-selected="product.categoryID==option.ID"
+                        value="{{option.ID}}">{{option.name}}</option>
             </select>
             <input type="text"
                    ng-model="product.name"

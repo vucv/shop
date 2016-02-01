@@ -5,16 +5,14 @@ angular.module('myApp.services.orders', [])
         self.all = function () {
             return DB.query('SELECT orders.*, name FROM orders, store WHERE orders.storeID = store.ID')
                 .then(function (result) {
-                    var days = {};
-                    for (var i = 0; i < result.rows.length; i++) {
-                        if(!days[result.rows.item(i).date]) {
-                            days[result.rows.item(i).date]={};
-                            days[result.rows.item(i).date].title=result.rows.item(i).date;
-                            days[result.rows.item(i).date].orders=[];
-                        }
-                        days[result.rows.item(i).date].orders.push(result.rows.item(i));
-                    }
-                    return days;
+                   return DB.fetchOder(result);
+                });
+        };
+
+        self.allByStoreID = function (id) {
+            return DB.query('SELECT order_detail.*,product.name name, category.icon icon, orders.date date FROM order_detail LEFT JOIN orders ON order_detail.ordersID=orders.ID LEFT JOIN store ON orders.storeID = store.ID LEFT JOIN product ON product.ID =order_detail.productID LEFT JOIN category ON category.ID =product.categoryID WHERE store.ID=? ORDER BY orders.date',[id])
+                .then(function (result) {
+                   return DB.fetchOder(result);
                 });
         };
 
@@ -22,16 +20,7 @@ angular.module('myApp.services.orders', [])
             return DB.query('SELECT * FROM orders,order_detail, product '
                 +'WHERE orders.ID = order_detail.ordersID and order_detail.productID=product.ID and orders.type = 1')
                 .then(function (result) {
-                    var days = {};
-                    for (var i = 0; i < result.rows.length; i++) {
-                        if(!days[result.rows.item(i).date]) {
-                            days[result.rows.item(i).date]={};
-                            days[result.rows.item(i).date].title=result.rows.item(i).date;
-                            days[result.rows.item(i).date].orders=[];
-                        }
-                        days[result.rows.item(i).date].orders.push(result.rows.item(i));
-                    }
-                    return days;
+                    return DB.fetchOder(result);
                 });
         };
 

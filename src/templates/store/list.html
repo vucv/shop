@@ -1,5 +1,5 @@
 <div ui-content-for="title">
-    <span>Scroll</span>
+    <span>Shop lấy sỉ</span>
 </div>
 
 <div ui-content-for="navbarAction">
@@ -8,27 +8,20 @@
     </a>
 </div>
 
-<div class="scrollable" ui-state="searchBar">
-    <input
-            ng-if="Ui.active('searchBar')"
-            type="search"
-            class="form-control scrollable-header"
-            placeholder="Tìm nhanh ..." />
-
-    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div class="list-group">
-            <a ng-repeat="item in stores" href="#/store/view?id={{item.ID}}" class="list-group-item row">
-                <i class="col-md-4">{{item.name.charAt(0)}}</i>
-                <i class="col-md-8">{{ item.name }}</i>
-            </a>
-
-        </div>
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <table>
+            <tr ng-repeat="item in stores">
+                <td class="icon-letter">
+                    <a href="#/store/view?id={{item.ID}}">{{item.name.charAt(0)}}</a>
+                </td>
+                <td class="icon-list-item">
+                    <a href="#/store/view?id={{item.ID}}">
+                        <div class="lead"><strong>{{ item.name }}</strong></div>
+                        <div class="small">{{ item.address }}</div>
+                    </a>
+                </td>
+            </tr>
+        </table>
     </div>
-
-    <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
-        <i class="fa fa-search"></i>
-        <span ui-hide="searchBar">Show</span>
-        <span ui-show="searchBar">Hide</span>
-        Search Bar
-    </a>
 </div>

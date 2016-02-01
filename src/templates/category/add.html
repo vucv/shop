@@ -3,7 +3,7 @@
 </div>
 
 <div ui-content-for="navbarAction">
-    <a href="#/category{{category.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
+    <a href="#/category{{category.ID?'/view?id='+category.ID:''}}" ui-toggle="uiSidebarRight" class="btn">
         <i class="fa fa-trash"></i> Hủy
     </a>
 </div>

@@ -1,16 +1,20 @@
-angular.module('MyApp.controllers.store', ['myApp.services.store', 'ngRoute'])
+angular.module('MyApp.controllers.store', ['myApp.services.store', 'myApp.services.orders', 'ngRoute'])
 
-    .controller('store', function ($scope, $location, $routeParams, storeDB) {
+    .controller('store', function ($scope, $location, $routeParams, storeDB, ordersDB) {
         $scope.stores = [];
         $scope.store;
         storeDB.all().then(function (stores) {
             $scope.stores = stores;
         });
-        storeDB.getById($routeParams.id).then(function (store) {
-            console.log($routeParams.id + "/" + store);
-            $scope.store = store;
-        });
+        if($routeParams.id) {
+            storeDB.getById($routeParams.id).then(function (store) {
+                $scope.store = store;
+            });
 
+            ordersDB.allByStoreID($routeParams.id).then(function (listOrder) {
+                $scope.listOrder = listOrder;
+            });
+        }
         $scope.getAll = function () {
             storeDB.all().then(function (stores) {
                 return stores;
@@ -18,6 +22,11 @@ angular.module('MyApp.controllers.store', ['myApp.services.store', 'ngRoute'])
         };
 
         $scope.save = function () {
+            //Validate
+            if (!$scope.store || !$scope.store.name || !$scope.store.address) {
+                alert("Vui lòng nhập đầy đủ thông tin");
+                return;
+            }
             if (!$scope.store.ID) {
                 storeDB.create($scope.store.name, $scope.store.address, $scope.store.icon, $scope.store.tel)
                     .then(function (result) {
@@ -40,15 +49,23 @@ angular.module('MyApp.controllers.store', ['myApp.services.store', 'ngRoute'])
                     });
             }
         };
+
         $scope.deleteStore = function (id) {
-            storeDB.deleteByID(id)
-                .then(function () {
-                    //Do somethin
-                    $location.path('/store');
-                });
+            if(!$scope.listOrder.isEmpty){
+                alert("Phải xóa hết hóa đơn của shop \"" + $scope.store.name + "\" trước !!!");
+                return;
+            }
+            var ok = confirm("Xóa cửa hàng " + $scope.store.name + " ?");
+            if (ok) {
+                storeDB.deleteByID(id)
+                    .then(function () {
+                        //Do somethin
+                        $location.path('/store');
+                    });
+            }
         };
-        $scope.selectedItem = function (store) {
-            $scope.store = store;
-            $location.path('/store/view');
+
+        $scope.detail = function (date) {
+            $scope.orderInDate = $scope.listOrder[date];
         };
     });

@@ -28,6 +28,11 @@ angular.module('MyApp.controllers.category', ['myApp.services.category', 'ngRout
             'jean1', 'jean2', 'jean3', 'jean4'];
 
         $scope.save = function () {
+            //Validate
+            if (!$scope.category || !$scope.category.name || !$scope.category.icon) {
+                alert("Vui lòng nhập đầy đủ thông tin");
+                return;
+            }
             if (!$scope.category.ID) {
                 categoryDB.create($scope.category.name, $scope.category.icon)
                     .then(function (result) {
@@ -52,10 +57,19 @@ angular.module('MyApp.controllers.category', ['myApp.services.category', 'ngRout
         };
 
         $scope.delete = function (id) {
-            categoryDB.deleteByID(id)
-                .then(function () {
-                    //Do somethin
-                    $location.path('/category');
-                });
+            //
+            if($scope.listProduct.length!=0){
+                alert("Phải xóa hết các sản phẩm trong \"" + $scope.category.name +"\" !!!");
+                return;
+            }
+            var ok = confirm("Xóa loại " + $scope.category.name + " ?");
+            if (ok) {
+                categoryDB.deleteByID(id)
+                    .then(function () {
+                        //Do somethin
+                        $location.path('/category');
+                    });
+            }
+
         };
     });

@@ -1,42 +1,31 @@
-<div ui-yield-to="backAction">
-    <a href="#/controller" ui-toggle="uiSidebarLeft" class="btn">
-        <i class="fa fa-angle-left"></i> Controller
-    </a>
-</div>
-
 <div ui-content-for="title">
-    <span>Thông tin của hàng</span>
+    <span>Thông tin của shop</span>
 </div>
 
 <div ui-content-for="navbarAction">
-    <a href="#/store{{store.ID?'/view?id=':''}}" ui-toggle="uiSidebarRight" class="btn">
+    <a href="#/store{{store.ID?'/view?id='+store.ID:''}}" ui-toggle="uiSidebarRight" class="btn">
         <i class="fa fa-trash"></i> Hủy
     </a>
 </div>
 <div class="scrollable">
     <div class="scrollable-content section">
-
-        <form role="form" ng-submit='login()'>
-            <fieldset>
-                <input type="text"
-                       ng-model="store.name"
-                       label = ""
-                       class="form-control input-lg "
-                       placeholder="Tên cửa hàng">
-                <input type="tel"
-                       label = ""
-                       ng-model="store.tel"
-                       class="form-control input-lg "
-                       placeholder="Số điện thoại">
-                <input type="textarea"
-                       ng-model="store.address"
-                       label = ""
-                       class="form-control input-lg "
-                       placeholder="Địa chỉ">
-
-            </fieldset>
+        <form role="form">
+            <input type="text"
+                   ng-model="store.name"
+                   label=""
+                   class="form-control input-lg "
+                   placeholder="Tên cửa hàng">
+            <input type="tel"
+                   label=""
+                   ng-model="store.tel"
+                   class="form-control input-lg "
+                   placeholder="Số điện thoại">
+            <input type="textarea"
+                   ng-model="store.address"
+                   label=""
+                   class="form-control input-lg "
+                   placeholder="Địa chỉ">
             <hr>
-
             <button class="btn btn-primary btn-block" ng-click="save()">
                 Lưu thông tin
             </button>

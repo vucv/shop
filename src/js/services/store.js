@@ -9,6 +9,13 @@ angular.module('myApp.services.store', [])
                 });
         };
 
+        self.allByProductID = function (id) {
+            return DB.query('SELECT store.*, orders.date date, COUNT(1) number, SUM(total) im, SUM(order_detail.price*total) imValue FROM order_detail LEFT JOIN orders ON order_detail.ordersID=orders.ID LEFT JOIN store ON orders.storeID = store.ID LEFT JOIN product ON product.ID =order_detail.productID LEFT JOIN category ON category.ID =product.categoryID WHERE orders.type = 0 and product.ID=? GROUP BY store.ID ORDER BY orders.date',[id])
+                .then(function (result) {
+                    return DB.fetchAll(result);
+                });
+        };
+
         self.getIdByName = function (name) {
             return DB.query('SELECT * FROM store WHERE name = ?', [name])
                 .then(function (result) {
@@ -23,7 +30,7 @@ angular.module('myApp.services.store', [])
         };
 
         self.getById = function (id) {
-            return DB.query('SELECT * FROM store WHERE id = ?', [id])
+            return DB.query('SELECT store.*, sum(CASE WHEN orders.type= 0 then total End) im,sum(CASE WHEN orders.type= 0 then total*order_detail.price End) imValue FROM store LEFT JOIN orders ON store.ID = orders.storeID LEFT JOIN order_detail ON orders.ID = order_detail.ordersID WHERE store.ID = ?', [id])
                 .then(function (result) {
                     console.log(JSON.stringify(result));
                     return DB.fetch(result);
