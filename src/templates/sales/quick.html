@@ -1,10 +1,10 @@
 <div ui-content-for="title">
-    <span>Thông tin của shop</span>
+    <span>Bán hàng hôm nay</span>
 </div>
 
 <div ui-content-for="navbarAction">
     <a href="#/sales{{sale.ID?'/view?id='+sale.ID:''}}" ui-toggle="uiSidebarRight" class="btn">
-        <i class="fa fa-trash"></i> Tất cả
+        <i class="fa"></i> Tất cả
     </a>
 </div>
 <div class="scrollable">
@@ -32,17 +32,23 @@
                    class="form-control input-lg "
                    placeholder="Giá">
             <hr>
-            <button class="btn btn-primary btn-block" ng-click="save()">
+            <button class="btn btn-primary btn-block" ng-click="quickSale()">
                 Bán
             </button>
         </form>
         <h3 class="text-center">Hôm nay</h3>
         <table>
             <tr ng-repeat="item in salesToday">
-                <td>{{item.ID}}</td>
-                <td><div class="{{item.icon?'icons-set '+ item.icon : 'miss-image fa fa-picture-o'}}"></div></td>
-                <td>{{item.productName}}</td>
-                <td>{{item.price}}</td>
+                <td>{{$index + 1}}</td>
+                <td><i class="{{item.icon?'icons-set '+ item.icon : 'miss-image fa fa-picture-o'}}"></i></td>
+                <td class="icon-list-item">{{item.productName}}</td>
+                <td class="text-right">{{item.price}}k</td>
+            </tr>
+            <tr>
+                <td>Tổng</td>
+                <td></td>
+                <td></td>
+                <td class="text-right">{{salesToday.total}}k</td>
             </tr>
         </table>
     </div>

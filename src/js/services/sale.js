@@ -3,13 +3,14 @@ angular.module('myApp.services.sale', [])
         var self = this;
 
         self.all = function () {
-            return DB.query('SELECT * FROM sale')
+            return DB.query('SELECT * FROM sale ORDER BY sale.date DESC')
                 .then(function (result) {
                     return self.fetchSale(result);
                 });
         };
         self.allToday = function () {
-            return DB.query('SELECT sale.*, product.name productName, category.icon icon,category.ID categoryID FROM sale LEFT JOIN product ON sale.productID=product.ID LEFT JOIN category ON product.categoryID = category.ID')
+            var today = new Date(new Date().toLocaleDateString() + " 0:0:0").getTime();
+            return DB.query('SELECT sale.*, product.name productName, category.icon icon,category.ID categoryID FROM sale LEFT JOIN product ON sale.productID=product.ID LEFT JOIN category ON product.categoryID = category.ID WHERE sale.date>? ORDER BY sale.date DESC',[today])
                 .then(function (result) {
                     return DB.fetchAll(result);
                 });
@@ -21,25 +22,26 @@ angular.module('myApp.services.sale', [])
                 days.isEmpty = true;
             }
             for (var i = 0; i < result.rows.length; i++) {
-                if (!days[result.rows.item(i).date]) {
-                    days[result.rows.item(i).date] = {};
-                    days[result.rows.item(i).date].title = new Date(result.rows.item(i).date).toLocaleDateString();
-                    if(days[result.rows.item(i).date].title==new Date().toLocaleDateString()){
-                        days[result.rows.item(i).date].title = "Hôm nay";
+                var title = new Date(result.rows.item(i).date).toLocaleDateString();
+                if (!days[title]) {
+                    days[title] = {};
+                    days[title].title = title;
+                    if(days[title].title==new Date().toLocaleDateString()){
+                        days[title].title = "Hôm nay";
                     }
-                    days[result.rows.item(i).date].total = 0;
-                    days[result.rows.item(i).date].price = 0;
-                    days[result.rows.item(i).date].orders = [];
+                    days[title].total = 0;
+                    days[title].price = 0;
+                    days[title].orders = [];
                 }
-                days[result.rows.item(i).date].orders.push(result.rows.item(i));
+                days[title].orders.push(result.rows.item(i));
                 if (isNaN(Number(result.rows.item(i).total))) {
                     result.rows.item(i).total = 0;
                 }
                 if (isNaN(Number(result.rows.item(i).price))) {
                     result.rows.item(i).price = 0;
                 }
-                days[result.rows.item(i).date].total += result.rows.item(i).total;
-                days[result.rows.item(i).date].price += (result.rows.item(i).price * result.rows.item(i).total);
+                days[title].total += result.rows.item(i).total;
+                days[title].price += (result.rows.item(i).price * result.rows.item(i).total);
             }
             return days;
         };

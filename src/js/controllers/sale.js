@@ -13,6 +13,10 @@ angular.module('MyApp.controllers.sale', ['myApp.services.sale','myApp.services.
         });
         saleDB.allToday().then(function (sales) {
             $scope.salesToday = sales;
+            $scope.salesToday.total = 0;
+            for (var i = 0; i < $scope.salesToday.length; i++) {
+                $scope.salesToday.total+=$scope.salesToday[i].price;
+            }
         });
         //Get list shop store
         productDB.all().then(function (products) {
@@ -81,6 +85,38 @@ angular.module('MyApp.controllers.sale', ['myApp.services.sale','myApp.services.
                     });
             }
         };
+
+        $scope.quickSale = function () {
+            if (!$scope.sale || !$scope.sale.productName|| !$scope.sale.price) {
+                alert("Vui lòng nhập đầy đủ thông tin!!!");
+                return;
+            }
+            if ($scope.sale.date.getTime() > new Date().getTime()) {
+                alert("Ngày nhập hóa đơn lớn hơn ngày hiện tại!!!");
+                return;
+            }
+
+
+            if(!$scope.checkProduct($scope.sale.productName)){
+                alert("Sản phẩm không tồn tại!!!");
+                return;
+            }
+            productDB.getIdByName($scope.sale.productName,null)
+                .then(function (productID) {
+                    saleDB.create(new Date().getTime(), productID, $scope.sale.price)
+                        .then(function (result) {
+                            //Do something
+                            if (result.rowsAffected != 0) {
+                                window.location.reload();
+                            } else {
+                                alert("Quá trình lưu bị lỗi !!!")
+                            }
+                        });
+                });
+
+        };
+
+
 
         $scope.delete = function (id) {
             var ok = confirm("Xóa giao dịch " + $scope.sale.ID + " ?");
