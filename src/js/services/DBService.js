@@ -36,6 +36,19 @@ angular.module('myApp.services', ['myApp.config'])
             return deferred.promise;
         };
 
+        self.querySync = function (query, bindings) {
+            self.addCommand(query, bindings);
+            return self.query(query, bindings);
+        };
+
+
+        self.addCommand = function (query,bindings) {
+            return self.query('INSERT INTO sync_table (query,bindings,timestamp) VALUES ( ?,?,?)', [query,JSON.stringify(bindings), new Date().getTime()])
+                .then(function (result) {
+                    return result;
+                });
+        };
+
         self.fetchAll = function (result) {
             var output = [];
 
@@ -83,6 +96,12 @@ angular.module('myApp.services', ['myApp.config'])
             return days;
         };
 
+        self.generateUUID = function () {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                return v.toString(16);
+            });
+        };
 
         return self;
     })

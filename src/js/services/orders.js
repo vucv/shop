@@ -48,7 +48,7 @@ angular.module('myApp.services.orders', [])
 
         self.create = function (storeID, type, date, note) {
 
-            return DB.query('INSERT INTO orders (storeID, type, date, note) VALUES ( ?,?,?,?)', [storeID, type, date, note])
+            return DB.query('INSERT INTO orders (ID,storeID, type, date, note) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),storeID, type, date, note])
                 .then(function (result) {
                     return result;
                 });
@@ -70,7 +70,7 @@ angular.module('myApp.services.orders', [])
 
         self.addDetail = function (ordersID, productID, total, price) {
 
-            return DB.query('INSERT INTO order_detail (ordersID, productID, total, price) VALUES ( ?,?,?,?)', [ordersID, productID, total, price])
+            return DB.query('INSERT INTO order_detail (ID,ordersID, productID, total, price) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),ordersID, productID, total, price])
                 .then(function (result) {
                     return result;
                 });

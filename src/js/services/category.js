@@ -27,7 +27,7 @@ angular.module('myApp.services.category', [])
 
         self.create = function (name, icon) {
 
-            return DB.query('INSERT INTO category (name, icon) VALUES ( ?,?)', [name, icon])
+            return DB.query('INSERT INTO category (ID,name, icon) VALUES ( ?,?,?)', [DB.generateUUID(),name, icon])
                 .then(function (result) {
                     return result;
                 });

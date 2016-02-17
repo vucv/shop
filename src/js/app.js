@@ -5,6 +5,7 @@ angular.module('MyApp', [
     'MyApp.controllers.Main',
     'MyApp.controllers.nhapDonHang',
     'myApp.services',
+    'myApp.services.syncDB',
     'myApp.services.store',
     'MyApp.controllers.store',
     'myApp.services.category',
@@ -16,8 +17,15 @@ angular.module('MyApp', [
     'MyApp.controllers.sale',
     'myApp.controllers'
 ])
-    .run(function (DB) {
+    .run(function (DB, syncDB) {
         DB.init();
+        //sync data
+        var timestamp =syncDB.syncTime();
+        if(timestamp == 0){
+            syncDB.syncAll();
+        }else{
+            syncDB.syncWithTime(timestamp);
+        }
     })
     .config(function ($routeProvider) {
         $routeProvider.when('/', {templateUrl: 'sales/quick.html', reloadOnSearch: false, controller: 'sale'});

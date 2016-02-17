@@ -32,7 +32,7 @@ angular.module('myApp.services.product', [])
 
         self.create = function (categoryID, name, icon, image) {
 
-            return DB.query('INSERT INTO product (categoryID, name, icon, image) VALUES ( ?,?,?,?)', [categoryID, name, icon, image])
+            return DB.query('INSERT INTO product (ID,categoryID, name, icon, image) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),categoryID, name, icon, image])
                 .then(function (result) {
                     return result;
                 });

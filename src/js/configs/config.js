@@ -5,7 +5,7 @@ angular.module('myApp.config', [])
       {
         name: 'store',
         columns: [
-            {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+            {name: 'ID', type: 'TEXT'},
             {name: 'name', type: 'TEXT'},
             {name: 'address', type: 'TEXT'},
             {name: 'icon', type: 'TEXT'},
@@ -15,7 +15,7 @@ angular.module('myApp.config', [])
       {
         name: 'category',
         columns: [
-        {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+        {name: 'ID', type: 'TEXT'},
         {name: 'name', type: 'TEXT'},
         {name: 'icon', type: 'TEXT'}
         ]
@@ -23,7 +23,7 @@ angular.module('myApp.config', [])
       {
         name: 'product',
         columns: [
-        {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+        {name: 'ID', type: 'TEXT'},
         {name: 'categoryID', type: 'INTEGER'},
         {name: 'name', type: 'TEXT'},
         {name: 'icon', type: 'TEXT'},
@@ -34,7 +34,7 @@ angular.module('myApp.config', [])
       {
         name: 'orders',
         columns: [
-        {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+        {name: 'ID', type: 'TEXT'},
         {name: 'storeID', type: 'INTEGER'},
         {name: 'type', type: 'INTEGER'},
         {name: 'date', type: 'DATETIME'},
@@ -44,7 +44,7 @@ angular.module('myApp.config', [])
       {
         name: 'order_detail',
         columns: [
-        {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+        {name: 'ID', type: 'TEXT'},
         {name: 'ordersID', type: 'INTEGER'},
         {name: 'productID', type: 'INTEGER'},
         {name: 'total', type: 'INTEGER'},
@@ -54,11 +54,25 @@ angular.module('myApp.config', [])
       {
         name: 'sale',
         columns: [
-        {name: 'ID', type: 'INTEGER PRIMARY KEY ASC'},
+        {name: 'ID', type: 'TEXT'},
         {name: 'date', type: 'INTEGER'},
         {name: 'productID', type: 'INTEGER'},
         {name: 'total', type: 'INTEGER'},
         {name: 'price', type: 'INTEGER'}
+        ]
+      },
+      {
+        name: 'sync_table',
+        columns: [
+          {name: 'query', type: 'TEXT'},
+          {name: 'bindings', type: 'TEXT'},
+          {name: 'timestamp', type: 'TEXT'}
+        ]
+      },
+      {
+        name: 'sync_info',
+        columns: [
+          {name: 'timestamp', type: 'TEXT'}
         ]
       }
     ]

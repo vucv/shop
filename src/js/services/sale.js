@@ -55,7 +55,7 @@ angular.module('myApp.services.sale', [])
 
         self.create = function (date,productID, price) {
 
-            return DB.query('INSERT INTO sale (date,productID, price) VALUES ( ?,?,?)', [date,productID, price])
+            return DB.query('INSERT INTO sale (ID,date,productID, price) VALUES (?,?,?,?)', [DB.generateUUID(),date,productID, price])
                 .then(function (result) {
                     return result;
                 });
