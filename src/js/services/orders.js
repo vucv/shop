@@ -1,5 +1,5 @@
 angular.module('myApp.services.orders', [])
-    .factory('ordersDB', function (DB) {
+    .factory('ordersDB', function (DB,syncDB) {
         var self = this;
 
         self.all = function () {
@@ -40,7 +40,7 @@ angular.module('myApp.services.orders', [])
                 });
         };
         self.deleteOderDetailById = function (id) {
-            return DB.query('DELETE FROM order_detail WHERE order_detail.ID = ?', [id])
+            return syncDB.querySync('DELETE FROM order_detail WHERE order_detail.ID = ?', [id])
                 .then(function (result) {
                     return result;
                 });
@@ -48,21 +48,21 @@ angular.module('myApp.services.orders', [])
 
         self.create = function (storeID, type, date, note) {
 
-            return DB.query('INSERT INTO orders (ID,storeID, type, date, note) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),storeID, type, date, note])
+            return syncDB.querySync('INSERT INTO orders (ID,storeID, type, date, note) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),storeID, type, date, note])
                 .then(function (result) {
                     return result;
                 });
         };
 
         self.updateByID = function (id, storeID, date) {
-            return DB.query('UPDATE orders SET storeID=?,date=? WHERE ID = ?;', [storeID, date, id])
+            return syncDB.querySync('UPDATE orders SET storeID=?,date=? WHERE ID = ?;', [storeID, date, id])
                 .then(function (result) {
                     return result;
                 });
         };
 
         self.deleteByID = function (id) {
-            return DB.query('DELETE FROM orders WHERE ID = ?', [id])
+            return syncDB.querySync('DELETE FROM orders WHERE ID = ?', [id])
                 .then(function (result) {
                     return result;
                 });
@@ -70,14 +70,14 @@ angular.module('myApp.services.orders', [])
 
         self.addDetail = function (ordersID, productID, total, price) {
 
-            return DB.query('INSERT INTO order_detail (ID,ordersID, productID, total, price) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),ordersID, productID, total, price])
+            return syncDB.querySync('INSERT INTO order_detail (ID,ordersID, productID, total, price) VALUES ( ?,?,?,?,?)', [DB.generateUUID(),ordersID, productID, total, price])
                 .then(function (result) {
                     return result;
                 });
         };
         self.editDetail = function (ID, productID, total, price) {
 
-            return DB.query('UPDATE order_detail SET productID=?,total=?,price=? WHERE ID = ?', [productID, total, price,ID])
+            return syncDB.querySync('UPDATE order_detail SET productID=?,total=?,price=? WHERE ID = ?', [productID, total, price,ID])
                 .then(function (result) {
                     return result;
                 });

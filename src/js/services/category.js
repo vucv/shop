@@ -1,5 +1,5 @@
 angular.module('myApp.services.category', [])
-    .factory('categoryDB', function (DB) {
+    .factory('categoryDB', function (DB, syncDB) {
         var self = this;
 
         self.all = function () {
@@ -27,21 +27,21 @@ angular.module('myApp.services.category', [])
 
         self.create = function (name, icon) {
 
-            return DB.query('INSERT INTO category (ID,name, icon) VALUES ( ?,?,?)', [DB.generateUUID(),name, icon])
+            return syncDB.querySync('INSERT INTO category (ID,name, icon) VALUES ( ?,?,?)', [DB.generateUUID(),name, icon])
                 .then(function (result) {
                     return result;
                 });
         };
 
         self.updateByID = function (id, name, icon) {
-            return DB.query('UPDATE category SET name = ?, icon = ? WHERE ID = ?;', [name, icon, id])
+            return syncDB.querySync('UPDATE category SET name = ?, icon = ? WHERE ID = ?;', [name, icon, id])
                 .then(function (result) {
                     return result;
                 });
         };
 
         self.deleteByID = function (id) {
-            return DB.query('DELETE FROM category WHERE ID = ?', [id])
+            return syncDB.querySync('DELETE FROM category WHERE ID = ?', [id])
                 .then(function (result) {
                     console.log(JSON.stringify(result));
                     return result;

@@ -1,5 +1,5 @@
 angular.module('myApp.services.sale', [])
-    .factory('saleDB', function (DB) {
+    .factory('saleDB', function (DB,syncDB) {
         var self = this;
 
         self.all = function () {
@@ -55,21 +55,21 @@ angular.module('myApp.services.sale', [])
 
         self.create = function (date,productID, price) {
 
-            return DB.query('INSERT INTO sale (ID,date,productID, price) VALUES (?,?,?,?)', [DB.generateUUID(),date,productID, price])
+            return syncDB.querySync('INSERT INTO sale (ID,date,productID, price) VALUES (?,?,?,?)', [DB.generateUUID(),date,productID, price])
                 .then(function (result) {
                     return result;
                 });
         };
 
         self.updateByID = function (id, date, productID, price) {
-            return DB.query('UPDATE sale SET date = ?, productID = ?, price = ? WHERE ID = ?;', [date, productID, price, id])
+            return syncDB.querySync('UPDATE sale SET date = ?, productID = ?, price = ? WHERE ID = ?;', [date, productID, price, id])
                 .then(function (result) {
                     return result;
                 });
         };
 
         self.deleteByID = function (id) {
-            return DB.query('DELETE FROM sale WHERE ID = ?', [id])
+            return syncDB.querySync('DELETE FROM sale WHERE ID = ?', [id])
                 .then(function (result) {
                     return result;
                 });

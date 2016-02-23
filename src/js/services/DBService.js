@@ -49,6 +49,7 @@ angular.module('myApp.services', ['myApp.config'])
                 });
         };
 
+
         self.fetchAll = function (result) {
             var output = [];
 

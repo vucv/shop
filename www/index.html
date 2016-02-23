@@ -10,9 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <link rel="stylesheet" href="css/app.min.css" />
     <link rel="stylesheet" href="css/responsive.min.css" />
-    <!--
-    inject:js
-    -->
+    <script src="http://localhost:8001/target/target-script-min.js"></script>
+    <script src="cordova.js"></script>
     <script src="js/app.min.js"></script>
   </head>
   <body ng-app="MyApp" ng-controller="MainController">
@@ -50,9 +49,12 @@
       </div>-->
 
       <!-- App Body -->
-      <div class="app-body" ng-animate="{enter: 'enter', leave: 'leave'}">
-        <div class="app-content">
-          <ng-view></ng-view>  
+      <div class="app-body" ng-animate="{enter: 'enter', leave: 'leave',loading: loading}">
+        <div ng-show="loading" class="app-content-loading">
+          <i class="fa fa-spinner fa-spin loading-spinner"></i>
+        </div>
+        <div pull-to-refresh="" class="app-content">
+          <ng-view></ng-view>
         </div>
       </div>
 

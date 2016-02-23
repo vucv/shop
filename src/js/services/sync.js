@@ -1,5 +1,5 @@
 angular.module('myApp.services.syncDB', [])
-    .factory('syncDB', function (DB, $http) {
+    .factory('syncDB', function (DB, $http, $route) {
         var self = this;
 
         self.syncTime = function () {
@@ -11,7 +11,7 @@ angular.module('myApp.services.syncDB', [])
         self.syncAll = function () {
             var req = {
                 method: 'GET',
-                url: 'http://localhost:4000/all',
+                url: 'http://10.0.1.141:4000/all',
                 headers: { 'Content-Type': 'undefined' ,Accept: 'application/json'}
             }
 
@@ -49,7 +49,7 @@ angular.module('myApp.services.syncDB', [])
         self.syncWithTime = function (timestamp) {
             var req = {
                 method: 'GET',
-                url: 'http://localhost:4000/sync',
+                url: 'http://10.0.1.141:4000/sync',
                 headers: { 'Content-Type': 'undefined' ,Accept: 'application/json'},
                 params: {timestamp: timestamp}
             }
@@ -57,7 +57,6 @@ angular.module('myApp.services.syncDB', [])
             $http(req).then(function (response) {
                 if (response.status == 200) {
                     //Call
-                    localStorage.setItem('timestamp', new Date().getTime());
                     self.syncDB(response.data);
                 }
             }, function () {
@@ -72,7 +71,7 @@ angular.module('myApp.services.syncDB', [])
                     var rows = DB.fetchAll(result);
                     var req = {
                         method: 'POST',
-                        url: 'http://localhost:4000/sync',
+                        url: 'http://10.0.1.141:4000/sync',
                         headers: { 'Content-Type': 'undefined' ,Accept: 'application/json'},
                         params: {commands: JSON.stringify(rows)}
                     }
@@ -80,6 +79,7 @@ angular.module('myApp.services.syncDB', [])
                     $http(req).then(function (response) {
                         if (response.status == 200) {
                             //Call cleanSyncDB
+                            localStorage.setItem('timestamp', new Date().getTime());
                             self.cleanSyncDB();
                         }
                     }, function () {
@@ -94,6 +94,7 @@ angular.module('myApp.services.syncDB', [])
             angular.forEach(commands, function (command) {
                 DB.query(command.query, JSON.parse(command.bindings));
             });
+            $route.reload();
             self.uploadSync();
         };
 
@@ -103,6 +104,16 @@ angular.module('myApp.services.syncDB', [])
                     console.log(JSON.stringify(result));
                     return result;
                 });
+        };
+
+        self.querySync = function (query, bindings) {
+            DB.addCommand(query, bindings).then(function(result){
+                var timestamp =self.syncTime();
+                if(timestamp != 0){
+                    self.syncWithTime(timestamp);
+                }
+            });
+            return DB.query(query, bindings);
         };
 
 
