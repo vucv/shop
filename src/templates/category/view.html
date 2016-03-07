@@ -21,13 +21,13 @@
             </tr>
             <tr class="small">
                 <td>Nhập hàng</td>
-                <td class="text-right">{{category.im}} cái</td>
-                <td class="text-right">{{category.imValue}}k</td>
+                <td class="text-right">{{category.im || 0}} cái</td>
+                <td class="text-right">{{category.imValue || 0}}k</td>
             </tr>
             <tr class="small">
                 <td>Bán</td>
-                <td class="text-right">{{category.ex}} cái</td>
-                <td class="text-right">{{category.exValue}}k</td>
+                <td class="text-right">{{category.ex || 0}} cái</td>
+                <td class="text-right">{{category.exValue || 0}}k</td>
             </tr>
         </table>
         <div class="row text-center">
@@ -46,10 +46,10 @@
             </tr>
             <tr ng-repeat="item in listProduct">
                 <th>{{item.name}}</th>
-                <td class="text-right">{{item.im}} cái</td>
-                <td class="text-right">{{item.imValue}}k</td>
-                <td class="text-right">{{item.ex}} cái</td>
-                <td class="text-right">{{item.exValue}}k</td>
+                <td class="text-right">{{item.im || 0}} cái</td>
+                <td class="text-right">{{item.imValue || 0}}k</td>
+                <td class="text-right">{{item.ex || 0}} cái</td>
+                <td class="text-right">{{item.exValue || 0}}k</td>
             </tr>
         </table>
 
