@@ -39,8 +39,8 @@
             <tr ng-repeat="date in listStore">
                 <td>{{date.name}}</td>
                 <td>{{date.number}}</td>
-                <td>{{date.im}} cái</td>
-                <td>{{date.imValue}}k</td>
+                <td>{{date.im || 0}} cái</td>
+                <td>{{date.imValue || 0}}k</td>
             </tr>
         </table>
     </div>

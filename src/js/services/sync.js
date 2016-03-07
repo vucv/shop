@@ -7,11 +7,10 @@ angular.module('myApp.services.syncDB', [])
             return syncTime ? syncTime : 0;
         };
 
-
         self.syncAll = function () {
             var req = {
                 method: 'GET',
-                url: 'http://10.0.1.141:4000/all',
+                url: 'http://10.0.1.137:4000/all',
                 headers: { 'Content-Type': 'undefined' ,Accept: 'application/json'}
             }
 
@@ -49,7 +48,7 @@ angular.module('myApp.services.syncDB', [])
         self.syncWithTime = function (timestamp) {
             var req = {
                 method: 'GET',
-                url: 'http://10.0.1.141:4000/sync',
+                url: 'http://10.0.1.137:4000/sync',
                 headers: { 'Content-Type': 'undefined' ,Accept: 'application/json'},
                 params: {timestamp: timestamp}
             }
@@ -71,7 +70,7 @@ angular.module('myApp.services.syncDB', [])
                     var rows = DB.fetchAll(result);
                     var req = {
                         method: 'POST',
-                        url: 'http://10.0.1.141:4000/sync',
+                        url: 'http://10.0.1.137:4000/sync',
                         headers: { 'Content-Type': 'undefined' ,Accept: 'application/json'},
                         params: {commands: JSON.stringify(rows)}
                     }

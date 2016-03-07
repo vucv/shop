@@ -9,7 +9,7 @@
 
 var config = {
   dest: 'www',
-  cordova: true,
+  cordova: false,
   less: {
     src: [
       './src/less/app.less', './src/less/responsive.less'
@@ -169,7 +169,7 @@ gulp.task('html', function() {
     inject.push('<script src="http://'+config.weinre.boundHost+':'+config.weinre.httpPort+'/target/target-script-min.js"></script>');
   }
   if (config.cordova) {
-    inject.push('<script src="cordova.js"></script>');
+    //inject.push('<script src="cordova.js"></script>');
   }
   gulp.src(['src/html/**/*.html'])
   .pipe(replace('<!-- inject:js -->', inject.join('\n    ')))

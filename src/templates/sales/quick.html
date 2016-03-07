@@ -42,13 +42,13 @@
                 <td>{{$index + 1}}</td>
                 <td><i class="{{item.icon?'icons-set '+ item.icon : 'miss-image fa fa-picture-o'}}"></i></td>
                 <td class="icon-list-item">{{item.productName}}</td>
-                <td class="text-right">{{item.price}}k</td>
+                <td class="text-right">{{item.price || 0}}k</td>
             </tr>
             <tr>
                 <td>Tổng</td>
                 <td></td>
                 <td></td>
-                <td class="text-right">{{salesToday.total}}k</td>
+                <td class="text-right">{{salesToday.total || 0}}k</td>
             </tr>
         </table>
     </div>

@@ -17,7 +17,7 @@
             <tr>
                 <td><div class="{{sale.icon?'icons-set '+ sale.icon : 'miss-image fa fa-picture-o'}}"></div></td>
                 <td class="icon-list-item"><h3>{{sale.productName}}</h3>
-                <span>Giá : {{sale.price}}k</span>
+                <span>Giá : {{sale.price || 0}}k</span>
                 </td>
                 <td>
                     <a class="btn btn-primary button-edit" href="#/sales/add?id={{sale.ID}}">Cập nhập</a>

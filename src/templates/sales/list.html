@@ -17,7 +17,7 @@
                 <a ng-repeat="item in date.orders" href="#/sales/view?id={{item.ID}}" class="list-group-item row">
                     <i class="col-md-4">{{item.ID}}</i>
                     <i class="col-md-8">{{ item.name }}</i>
-                    <i class="col-md-8">{{ item.price }}</i>
+                    <i class="col-md-8">{{ item.price || 0}}</i>
                 </a>
             </div>
         </div>

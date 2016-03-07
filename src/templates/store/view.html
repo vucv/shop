@@ -35,21 +35,29 @@
         <table>
             <tr>
                 <td>Tổng giao dịch</td>
-                <td class="text-right">{{store.im}} cái</td>
-                <td class="text-right">{{store.imValue}}k</td>
+                <td class="text-right">{{store.im || 0}} cái</td>
+                <td class="text-right">{{store.imValue || 0}}k</td>
             </tr>
         </table>
         <br>
+
         <h3>Lịch sử lấy hàng:</h3>
         <hr>
+        <span ng-if="listOrder.isEmpty">
+           Chưa có giao dịch
+        </span>
+        <span ng-if="!listOrder.isEmpty">
+
         <table>
             <tr ng-repeat="date in listOrder">
                 <td>{{date.title}}</td>
                 <td>{{date.total}} cái</td>
                 <td>{{date.price}}k</td>
-                <td><a class="btn btn-default button-edit" ui-turn-on="modalStoreView" ng-click="detail(date.title)">Chi tiết</a></td>
+                <td><a class="btn btn-default button-edit" ui-turn-on="modalStoreView" ng-click="detail(date.title)">Chi
+                    tiết</a></td>
             </tr>
         </table>
+            </span>
 
         <div ui-content-for="modals">
             <div class="modal" ui-if='modalStoreView' ui-state='modalStoreView'>
